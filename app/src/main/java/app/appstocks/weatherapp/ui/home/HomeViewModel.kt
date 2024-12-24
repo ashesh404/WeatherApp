@@ -19,7 +19,7 @@ class HomeViewModel: ViewModel() {
     var _searchListItem = MutableStateFlow<List<SearchListItem>>(emptyList())
     val searchListItem = _searchListItem.asStateFlow()
     lateinit var searchListItem2: MutableList<SearchListItem>
-    lateinit var selectedItem: SearchListItem
+    var selectedItem: SearchListItem? = null
     init {
 //        originalListItem = getSearchList()
 //        searchListItem = mutableListOf()
@@ -69,6 +69,9 @@ class HomeViewModel: ViewModel() {
             getFilterResult(searchQuery.value)
         }*/
 
+        selectedItem = null
+        citySelected.value = false
+        searchQuery.value = str
         viewModelScope.launch {
             callSearchApi(str)
             println("Search query: "+str)

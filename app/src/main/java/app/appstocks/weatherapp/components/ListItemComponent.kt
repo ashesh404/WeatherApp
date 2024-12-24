@@ -91,7 +91,7 @@ fun ListItemComponent(item: SearchListItem, onSearchItemClick: (SearchListItem) 
 
 //            Spacer(Modifier.padding(20.dp))
 
-            Image(
+            /*Image(
                 modifier = Modifier
                     .padding(end = 30.dp)
                     .weight(0.4f)
@@ -99,13 +99,13 @@ fun ListItemComponent(item: SearchListItem, onSearchItemClick: (SearchListItem) 
                     .width(80.dp),
                 painter = painterResource(R.drawable.ic_cloudy),
                 contentDescription = ""
-            )
+            )*/
 
-            /*AsyncImage(
-                model = item.currentData?.current?.condition?.icon?.replace("//",""),
+            AsyncImage(
+                model = "https://"+item.currentData?.current?.condition?.icon,
                 contentDescription = "",
                 modifier = Modifier.padding(top = 10.dp, start = 10.dp).size(100.dp),
-            )*/
+            )
         }
     }
 }

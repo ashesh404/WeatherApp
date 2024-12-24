@@ -17,9 +17,12 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.BiasAlignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import app.appstocks.weatherapp.R
@@ -101,42 +104,54 @@ fun HomeScreen(homeViewModel: HomeViewModel) {
                             )
                         ) {
                             AsyncImage(
-                                model = it.currentData?.current?.condition?.icon?.replace("//",""),
+                                model = "https://"+it?.currentData?.current?.condition?.icon,
                                 contentDescription = "",
                                 modifier = Modifier.padding(top = 10.dp, start = 10.dp).size(100.dp),
                             )
 
-                            Row(
-                                horizontalArrangement = Arrangement.SpaceBetween,
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Text(
-                                    modifier = Modifier.padding(top = 10.dp),
-                                    text = it.name,
-                                    fontSize = 30.sp,
-                                    color = MaterialTheme.colorScheme.background,
-                                    fontWeight = FontWeight.W600
-                                )
+                            Row {
+                                Column(
+//                                    modifier = Modifier.background(color = Color.Blue),
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                ) {
+                                    it?.name?.let { it1 ->
+                                        Text(
+                                            modifier = Modifier.padding(top = 10.dp),
+                                            text = it1,
+                                            fontSize = 30.sp,
+                                            color = MaterialTheme.colorScheme.background,
+                                            fontWeight = FontWeight.W600,
+                                            textAlign = TextAlign.Center,
+                                            lineHeight = 32.sp
+                                        )
+                                    }
 
-                                Image(
-                                    modifier = Modifier.padding(top = 10.dp, start = 10.dp),
-                                    painter = painterResource(R.drawable.ic_location),
-                                    contentDescription = ""
-                                )
+                                    it?.currentData?.current?.temp_c.let { it1 ->
+                                        Text(
+                                            modifier = Modifier.padding(top = 10.dp),
+                                            text = it1.toString(),
+                                            fontSize = 70.sp,
+                                            color = MaterialTheme.colorScheme.background,
+                                            fontWeight = FontWeight.W500
+                                        )
+                                    }
+                                }
+
+                                Row {
+                                    Image(
+                                        modifier = Modifier.padding(top = 10.dp, start = 10.dp),
+                                        painter = painterResource(R.drawable.ic_location),
+                                        contentDescription = ""
+                                    )
+                                }
                             }
-
-                            Text(
-                                modifier = Modifier.padding(top = 10.dp),
-                                text = it.region,
-                                fontSize = 70.sp,
-                                color = MaterialTheme.colorScheme.background,
-                                fontWeight = FontWeight.W500
-                            )
 
                             Spacer(Modifier.padding(20.dp))
 
                             // Weather details
-                            WeatherDetailsComponent(it)
+                            if (it != null) {
+                                WeatherDetailsComponent(it)
+                            }
                         }
                     }
 
