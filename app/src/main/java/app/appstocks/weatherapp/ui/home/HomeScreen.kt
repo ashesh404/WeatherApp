@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import app.appstocks.weatherapp.R
+import app.appstocks.weatherapp.Util.Utility
 import app.appstocks.weatherapp.components.SearchBar
 import app.appstocks.weatherapp.components.SearchListItems
 import app.appstocks.weatherapp.components.WeatherDetailsComponent
@@ -103,15 +104,18 @@ fun HomeScreen(homeViewModel: HomeViewModel) {
                                 )
                             )
                         ) {
-                            AsyncImage(
-                                model = "https://"+it?.currentData?.current?.condition?.icon,
-                                contentDescription = "",
-                                modifier = Modifier.padding(top = 10.dp, start = 10.dp).size(100.dp),
-                            )
+                            it?.currentData?.current?.condition?.icon?.let { it1 ->
+
+                                AsyncImage(
+                                    model = Utility.get128IconUrl(url = it1),
+                                    contentDescription = "",
+                                    modifier = Modifier.padding(top = 10.dp, start = 10.dp)
+                                        .size(100.dp),
+                                )
+                            }
 
                             Row {
                                 Column(
-//                                    modifier = Modifier.background(color = Color.Blue),
                                     horizontalAlignment = Alignment.CenterHorizontally,
                                 ) {
                                     it?.name?.let { it1 ->
@@ -137,9 +141,9 @@ fun HomeScreen(homeViewModel: HomeViewModel) {
                                     }
                                 }
 
-                                Row {
+                                Row() {
                                     Image(
-                                        modifier = Modifier.padding(top = 10.dp, start = 10.dp),
+                                        modifier = Modifier.padding(top = 10.dp, start = 5.dp),
                                         painter = painterResource(R.drawable.ic_location),
                                         contentDescription = ""
                                     )

@@ -28,6 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import app.appstocks.weatherapp.R
+import app.appstocks.weatherapp.Util.Utility
 import app.appstocks.weatherapp.models.response.SearchListItem
 import coil.compose.AsyncImage
 
@@ -100,12 +101,13 @@ fun ListItemComponent(item: SearchListItem, onSearchItemClick: (SearchListItem) 
                 painter = painterResource(R.drawable.ic_cloudy),
                 contentDescription = ""
             )*/
-
-            AsyncImage(
-                model = "https://"+item.currentData?.current?.condition?.icon,
-                contentDescription = "",
-                modifier = Modifier.padding(top = 10.dp, start = 10.dp).size(100.dp),
-            )
+            item.currentData?.current?.condition?.icon?.let {
+                AsyncImage(
+                    model = Utility.get128IconUrl(url = it),
+                    contentDescription = "",
+                    modifier = Modifier.padding(top = 10.dp, start = 10.dp).size(100.dp),
+                )
+            }
         }
     }
 }
