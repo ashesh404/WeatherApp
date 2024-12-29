@@ -1,4 +1,4 @@
-package app.appstocks.weatherapp.models.response
+package app.appstocks.domain
 
 data class CurrentDataResponse(
     val current: Current,

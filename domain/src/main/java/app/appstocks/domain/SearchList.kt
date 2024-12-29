@@ -1,4 +1,4 @@
-package app.appstocks.weatherapp.models.response
+package app.appstocks.domain
 
 data class SearchListItem(
     val country: String,
@@ -10,6 +10,3 @@ data class SearchListItem(
     val url: String,
     var currentData: CurrentDataResponse? = null
 )
-
-class SearchList : ArrayList<SearchListItem>()
-//class SearchList(items: ArrayList<SearchListItem>)
