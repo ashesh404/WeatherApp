@@ -97,7 +97,11 @@ class HomeViewModel @Inject constructor():  ViewModel() {
     }
 
     fun backPress() {
-
+        if(citySelected.value) {
+            selectedItem = null
+            citySelected.value = false
+            searchQuery.value = ""
+        }
     }
 
     suspend fun callSearchApi(query: String) {
